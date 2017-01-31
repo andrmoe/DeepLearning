@@ -1,11 +1,11 @@
-package oving1;
+package testing;
 
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class TestController {
+public class Test1Controller {
 	
 	private String realPassword = "hallaballa";
 	

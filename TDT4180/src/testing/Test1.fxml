@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-	fx:controller="oving1.TestController">
+	fx:controller="testing.Test1Controller">
 	<HBox>
 		<TextField fx:id="username" 
 			text="username" 
@@ -30,7 +30,7 @@
 			layoutX="50"
 			layoutY="50">
 				<image>
-					<Image url="@STAR.png"/>
+					<Image url="@../oving1/STAR.png"/>
 				</image>
 		</ImageView>
 		<Pane prefHeight="100" prefWidth="330">
