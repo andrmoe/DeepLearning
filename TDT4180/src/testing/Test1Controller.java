@@ -33,6 +33,5 @@ public class Test1Controller {
 	
 	void loginSuccessful() {
 		username.setText("LOGIN successful");
-		password.setText("successful");
 	}
 }
