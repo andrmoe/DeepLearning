@@ -12,6 +12,7 @@ public class Test1 extends Application{
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		Parent root = FXMLLoader.load(Test1.class.getResource("Test1.fxml"));
+		primaryStage.setTitle("Please Log in");
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 	}

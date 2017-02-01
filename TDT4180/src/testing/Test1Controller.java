@@ -4,6 +4,7 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class Test1Controller {
 	
@@ -33,5 +34,7 @@ public class Test1Controller {
 	
 	void loginSuccessful() {
 		username.setText("LOGIN successful");
+		Stage primStage = (Stage) username.getScene().getWindow();
+		primStage.setTitle("Login Successful!");
 	}
 }
