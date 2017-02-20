@@ -50,39 +50,46 @@ def get_credentials():
         print('Storing credentials to ' + credential_path)
     return credentials
 
+def createEvent(start, end):
+    credentials = get_credentials()
+    http = credentials.authorize(httplib2.Http())
+    service = discovery.build('calendar', 'v3', http=http)
+
+    event = {
+        'summary': 'Study Session',
+        'description': 'Study using DeepLearning',
+        'start': {
+            'dateTime': '2017-05-28T09:00:00-07:00',
+            'timeZone': 'Europe/Oslo',
+        },
+        'end': {
+            'dateTime': '2015-05-28T17:00:00-07:00',
+            'timeZone': 'Europe/Oslo',
+        },
+        'recurrence': [
+            'RRULE:FREQ=WEEKLY;COUNT=2'
+        ],
+        'reminders': {
+            'useDefault': False,
+            'overrides': [
+                {'method': 'email', 'minutes': 60},
+                {'method': 'popup', 'minutes': 10},
+            ],
+        },
+    }
+
+    event['start']['dateTime'] = start.isoformat()
+    event['end']['dateTime'] = end.isoformat()
+    event = service.events().insert(calendarId='r8mu15s0t2a0p3fipn5gmjeom4@group.calendar.google.com', body=event).execute()
+    print ('Event created: %s' % (event.get('htmlLink')))
+
 def main():
     """Shows basic usage of the Google Calendar API.
 
     Creates a Google Calendar API service object and outputs a list of the next
     10 events on the user's calendar.
     """
-    credentials = get_credentials()
-    http = credentials.authorize(httplib2.Http())
-    service = discovery.build('calendar', 'v3', http=http)
-    now = datetime.datetime.utcnow() + datetime.timedelta(days=3)
-
-    event = {
-      'summary': 'Study Session',
-      'description': 'Study using DeepLearning',
-      'start': {
-        'dateTime': '2017-05-28T09:00:00-07:00',
-        'timeZone': 'Europe/Oslo',
-      },
-      'end': {
-        'dateTime': '2015-05-28T17:00:00-07:00',
-        'timeZone': 'Europe/Oslo',
-      },
-      'recurrence': [
-        'RRULE:FREQ=WEEKLY;COUNT=2'
-      ],
-      'reminders': {
-        'useDefault': False,
-        'overrides': [
-          {'method': 'email', 'minutes': 60},
-          {'method': 'popup', 'minutes': 10},
-        ],
-      },
-    }
+    now = datetime.datetime.utcnow()
 
     s = [True, True, False, True, False, False, False]
 
@@ -95,11 +102,7 @@ def main():
             date = now + datetime.timedelta(days=day-now.weekday())
 
         print(date)
-
-        event['start']['dateTime'] = date.isoformat()
-        event['end']['dateTime'] = (date + datetime.timedelta(minutes=20)).isoformat()
-        event = service.events().insert(calendarId='primary', body=event).execute()
-        print ('Event created: %s' % (event.get('htmlLink')))
+        createEvent(date, date + datetime.timedelta(minutes=20))
 
 if __name__ == '__main__':
     main()
